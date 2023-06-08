@@ -151,6 +151,20 @@ output application/json
         </ee:transform>
     </flow>
     <flow name="post:\resources\produtos:application\json:petzin-search-product-sys-api-config">
-        <logger level="INFO" message="post:\resources\produtos:application\json:petzin-search-product-sys-api-config" />
+		<ee:transform doc:name="payload" doc:id="9c52a8d9-24d3-4c6a-821a-30b880a82783" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  produtos: [
+    {
+      code: 200,
+      message: "Dados enviados com Sucesso!"
+    }
+  ]
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
     </flow>
 </mule>
