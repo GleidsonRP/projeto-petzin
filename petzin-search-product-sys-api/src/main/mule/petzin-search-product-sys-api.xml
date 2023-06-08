@@ -124,7 +124,7 @@ output application/json
         </error-handler>
     </flow>
     <flow name="get:\resources\produtos:petzin-search-product-sys-api-config">
-        <ee:transform doc:name="Transform Message">
+        <ee:transform doc:name="abcde">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
