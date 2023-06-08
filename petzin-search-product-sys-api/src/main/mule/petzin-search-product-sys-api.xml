@@ -3,7 +3,7 @@
     <http:listener-config name="petzin-search-product-sys-api-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
-    <apikit:config name="petzin-search-product-sys-api-config" api="resource::ebdfbd53-dd78-40fb-8cd3-5abde9855e4c:petzin-search-product-sys-api:1.0.0:raml:zip:petzin-search-product-sys-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="petzin-search-product-sys-api-config" api="resource::ebdfbd53-dd78-40fb-8cd3-5abde9855e4c:petzin-search-product-sys-api:1.0.1:raml:zip:petzin-search-product-sys-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <flow name="petzin-search-product-sys-api-main">
         <http:listener config-ref="petzin-search-product-sys-api-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -149,10 +149,27 @@ output application/json
 }]]></ee:set-payload>
             </ee:message>
         </ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="56f168f2-f3e4-45ae-bc64-57bcc6936531" />
+        <logger level="INFO" doc:name="Logger" doc:id="56f168f2-f3e4-45ae-bc64-57bcc6936531" />
     </flow>
     <flow name="post:\resources\produtos:application\json:petzin-search-product-sys-api-config">
-		<ee:transform doc:name="payload" doc:id="9c52a8d9-24d3-4c6a-821a-30b880a82783" >
+        <ee:transform doc:name="payload" doc:id="9c52a8d9-24d3-4c6a-821a-30b880a82783">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  produtos: [
+    {
+      code: 200,
+      message: "Dados enviados com Sucesso!"
+    }
+  ]
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+    <flow name="put:\resources\produtos:application\json:petzin-search-product-sys-api-config">
+		<ee:transform doc:name="payload" doc:id="73b82748-f8b0-4fc0-a6c9-e706fd346397" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
@@ -167,5 +184,6 @@ output application/json
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" message="#[payload]" />
     </flow>
 </mule>
